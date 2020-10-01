@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ItemsService } from "./items.service";
 import { Item } from "./item.entity";
 
@@ -11,22 +11,22 @@ export class ItemsController {
     return this.itemsService.findAll();
   }
 
-  @Post('add')
+  @Post()
   async addItem(@Body() item: { name: string }) {
     return await this.itemsService.addItem(item.name);
   }
 
-  @Post('done/:id')
+  @Put('done/:id')
   async changeDone(@Param('id') id: string): Promise<void> {
     return await this.itemsService.changeDone(id);
   }
 
-  @Post('delete/:id')
+  @Delete(':id')
   async deleteOne(@Param('id') id: string): Promise<void> {
     return await this.itemsService.deleteItem(id);
   }
 
-  @Post('delete')
+  @Delete()
   async deleteDone(): Promise<void> {
     return await this.itemsService.deleteDone();
   }
